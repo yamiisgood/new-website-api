@@ -55,7 +55,7 @@ let lastCharacterId = null;
 async function loadCharacters() {
     try {
         const response = await fetch(
-            `${API_BASE_URL}/api/v1/characters?limit=100&offset=0&sort_by=name&order=asc`,
+           `${API_BASE_URL}/characters?limit=100&offset=0&sort_by=name&order=asc`,
             {
                 headers: {
                     "x-api-key": API_KEY
