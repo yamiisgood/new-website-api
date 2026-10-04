@@ -1,0 +1,879 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&display=swap');
+
+:root {
+    --black: #050505;
+    --panel: #0c0c0c;
+    --white: #f7f7f7;
+    --muted: #aaaaaa;
+    --red: #c60000;
+    --dark-red: #7e0000;
+    --line: rgba(255, 255, 255, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--black);
+    color: var(--white);
+    font-family: "Montserrat", Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+body.game-active {
+    overflow: hidden;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    border: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---------- Header ---------- */
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    min-height: 72px;
+    padding: 12px clamp(18px, 4vw, 58px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 900;
+}
+
+.dbd-logo {
+    font-size: 11px;
+    line-height: 0.9;
+}
+
+.scratch {
+    letter-spacing: -4px;
+    font-size: 14px;
+}
+
+.brand-divider {
+    width: 2px;
+    height: 28px;
+    background: #fff;
+    opacity: 0.55;
+}
+
+.minigame-title {
+    font-size: clamp(12px, 1.4vw, 18px);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 4vw, 56px);
+}
+
+.nav-menu a {
+    position: relative;
+    font-size: 11px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.nav-menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.2s ease;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.menu-btn {
+    display: none;
+    background: transparent;
+    color: #fff;
+    font-size: 24px;
+}
+
+/* ---------- Shared ---------- */
+
+.screen,
+.content-section {
+    scroll-margin-top: 72px;
+}
+
+.content-section {
+    min-height: 100vh;
+    padding: 118px clamp(20px, 6vw, 88px) 80px;
+    background:
+        radial-gradient(circle at 80% 15%, rgba(255, 255, 255, 0.05), transparent 24%),
+        linear-gradient(180deg, #090909, #050505);
+}
+
+.section-heading {
+    max-width: 760px;
+    margin-bottom: 38px;
+}
+
+.section-heading > span,
+.kicker {
+    display: inline-block;
+    color: #e40000;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    margin-bottom: 12px;
+}
+
+.section-heading h2,
+.hero-copy h1 {
+    font-family: "Anton", Impact, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.015em;
+    line-height: 0.98;
+}
+
+.section-heading h2 {
+    font-size: clamp(40px, 7vw, 86px);
+    margin-bottom: 16px;
+}
+
+.section-heading p,
+.hero-copy p,
+.about-grid p,
+.mode-card p {
+    color: #b7b7b7;
+    line-height: 1.7;
+}
+
+.primary-btn,
+.secondary-btn {
+    min-width: 170px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 24px;
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.primary-btn {
+    color: #fff;
+    background: #050505;
+    border: 2px solid #fff;
+}
+
+.primary-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+.secondary-btn {
+    color: #fff;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.3);
+}
+
+/* ---------- Landing ---------- */
+
+.hero-screen {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px clamp(20px, 7vw, 100px) 60px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 70% 42%, rgba(122, 122, 122, 0.18), transparent 27%),
+        linear-gradient(120deg, #020202 0%, #090909 48%, #2e2e2e 100%);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,.98) 0%, rgba(0,0,0,.68) 50%, rgba(0,0,0,.15) 100%),
+        linear-gradient(0deg, rgba(0,0,0,.6), transparent 55%);
+}
+
+.hero-copy {
+    position: relative;
+    z-index: 4;
+    width: min(680px, 100%);
+}
+
+.hero-copy h1 {
+    font-size: clamp(52px, 8vw, 112px);
+    margin-bottom: 24px;
+}
+
+.hero-copy p {
+    max-width: 580px;
+    margin-bottom: 30px;
+}
+
+.hero-character {
+    position: absolute;
+    z-index: 2;
+    right: clamp(-100px, 2vw, 20px);
+    bottom: 0;
+    width: min(48vw, 640px);
+    height: 86vh;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right bottom;
+    filter: drop-shadow(0 0 38px rgba(255,255,255,.08));
+}
+
+/* ---------- Character list ---------- */
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.filter-btn {
+    padding: 10px 16px;
+    color: #fff;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.character-card {
+    min-height: 225px;
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    border: 1px solid #222;
+}
+
+.character-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(.28);
+    transition: transform .25s ease, filter .25s ease;
+}
+
+.character-card:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0);
+}
+
+.character-card div {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 34px 10px 12px;
+    background: linear-gradient(transparent, rgba(0,0,0,.97));
+}
+
+.character-card strong {
+    display: block;
+    font-size: 12px;
+}
+
+.character-card small {
+    color: #bbb;
+    font-size: 9px;
+}
+
+.loading-text {
+    color: #aaa;
+}
+
+/* ---------- Mode cards ---------- */
+
+.mode-section {
+    background:
+        linear-gradient(rgba(0,0,0,.76), rgba(0,0,0,.95)),
+        radial-gradient(circle at center, #444, #080808 60%);
+}
+
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.mode-card {
+    min-height: 360px;
+    position: relative;
+    padding: 34px 28px;
+    text-align: left;
+    color: #fff;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)),
+        #090909;
+    border: 1px solid #222;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .2s ease, border-color .2s ease;
+}
+
+.mode-card::after {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    right: -80px;
+    bottom: -80px;
+    background: var(--red);
+    border-radius: 50%;
+    filter: blur(55px);
+    opacity: .16;
+}
+
+.mode-card:hover {
+    transform: translateY(-7px);
+    border-color: #777;
+}
+
+.mode-number {
+    color: #b30000;
+    font-family: "Anton", Impact, sans-serif;
+    font-size: 50px;
+}
+
+.mode-card h3 {
+    font-family: "Anton", Impact, sans-serif;
+    font-size: 42px;
+    margin: 38px 0 14px;
+}
+
+.mode-cta {
+    position: absolute;
+    left: 28px;
+    bottom: 30px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+/* ---------- Game ---------- */
+
+.game-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    min-height: 100vh;
+    padding-top: 72px;
+    overflow: hidden;
+    background: #222;
+}
+
+.game-backdrop,
+.reveal-backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.26) 65%, rgba(0,0,0,.48) 100%),
+        radial-gradient(circle at center, rgba(255,255,255,.07), transparent 38%),
+        linear-gradient(110deg, #020202, #545454);
+}
+
+.game-ui {
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    height: calc(100vh - 72px);
+    padding: 28px clamp(20px, 5vw, 62px);
+}
+
+.game-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-status h2,
+.lives-box {
+    font-size: clamp(15px, 2.3vw, 27px);
+    font-weight: 900;
+}
+
+.lives-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.lives {
+    display: flex;
+    gap: 4px;
+    transform: rotate(6deg);
+}
+
+.lives span {
+    display: block;
+    font-size: 24px;
+    transform: skew(-8deg);
+}
+
+.lives span.lost {
+    opacity: .15;
+}
+
+.clue-panel {
+    width: min(620px, 88vw);
+    position: absolute;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mode-label {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ddd;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .16em;
+}
+
+.text-clue {
+    min-height: 260px;
+    padding: 32px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #111;
+    background: rgba(244,244,244,.95);
+    border: 3px solid #111;
+    font-weight: 800;
+    line-height: 1.75;
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+}
+
+.perks-clue {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    min-height: 240px;
+}
+
+.perks-clue article {
+    min-height: 220px;
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.86)),
+        #111;
+    border: 1px solid #444;
+    text-align: center;
+}
+
+.perks-clue article::before {
+    content: "◇";
+    margin: auto;
+    font-size: 70px;
+    color: #eee;
+    opacity: .8;
+}
+
+.perks-clue span {
+    color: #999;
+    font-size: 9px;
+    letter-spacing: .14em;
+}
+
+.perks-clue strong {
+    margin-top: 6px;
+    font-size: 12px;
+}
+
+.image-clue {
+    width: 100%;
+    height: min(52vh, 360px);
+    overflow: hidden;
+    border: 2px solid #111;
+    background: #0a0a0a;
+    box-shadow: 0 12px 30px rgba(0,0,0,.5);
+}
+
+.image-clue img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    transform: scale(5.2);
+    transition: transform .45s ease;
+}
+
+.guess-form {
+    margin-top: 14px;
+    display: grid;
+    gap: 8px;
+}
+
+.guess-form input,
+.guess-form button {
+    width: 100%;
+    height: 46px;
+    text-align: center;
+    font-weight: 900;
+    border: 2px solid #050505;
+}
+
+.guess-form input {
+    color: #000;
+    background: #fff;
+    outline: none;
+}
+
+.guess-form button {
+    color: #fff;
+    background: #050505;
+    cursor: pointer;
+}
+
+.guess-form button:hover {
+    background: #181818;
+}
+
+.game-message {
+    height: 24px;
+    margin-top: 9px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.game-message.wrong {
+    color: #ff2f2f;
+}
+
+.side-character {
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    width: 34vw;
+    height: 72vh;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom center;
+    filter: grayscale(.35) brightness(.68);
+    opacity: .56;
+}
+
+.side-left {
+    left: -4vw;
+}
+
+.side-right {
+    right: -4vw;
+}
+
+.blood-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 96;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.blood-drop {
+    position: absolute;
+    width: var(--size);
+    height: calc(var(--size) * 0.7);
+    left: var(--x);
+    top: var(--y);
+    background: #c40000;
+    border-radius: 55% 45% 60% 40%;
+    transform: rotate(var(--rot));
+    box-shadow:
+        calc(var(--size) * .45) calc(var(--size) * .22) 0 calc(var(--size) * -.33) #a90000,
+        calc(var(--size) * -.5) calc(var(--size) * .35) 0 calc(var(--size) * -.37) #b60000;
+    opacity: .88;
+    animation: bloodPop .35s ease-out both;
+}
+
+@keyframes bloodPop {
+    from { transform: scale(.15) rotate(var(--rot)); opacity: 0; }
+    to { transform: scale(1) rotate(var(--rot)); opacity: .88; }
+}
+
+/* ---------- Reveal ---------- */
+
+.reveal-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 92;
+    min-height: 100vh;
+    padding-top: 72px;
+    overflow: hidden;
+    background: #222;
+}
+
+.reveal-copy {
+    position: relative;
+    z-index: 3;
+    height: calc(100vh - 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 40px 20px 44px;
+    text-align: center;
+}
+
+.reveal-copy img {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    max-width: 72vw;
+    max-height: 78vh;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 0 20px rgba(0,0,0,.8));
+}
+
+.reveal-copy > p:first-child {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .16em;
+}
+
+.reveal-copy h2 {
+    font-family: "Anton", Impact, sans-serif;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: .95;
+    text-shadow: 0 3px 15px #000;
+}
+
+#revealStats {
+    margin-top: 6px;
+    color: #ddd;
+    font-size: 12px;
+    text-shadow: 0 2px 8px #000;
+}
+
+.reveal-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    position: relative;
+    z-index: 5;
+}
+
+/* ---------- About ---------- */
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: #252525;
+}
+
+.about-grid article {
+    min-height: 230px;
+    padding: 28px;
+    background: #090909;
+}
+
+.about-grid strong {
+    font-family: "Anton", Impact, sans-serif;
+    color: #bb0000;
+    font-size: 48px;
+}
+
+.about-grid h3 {
+    margin: 18px 0 10px;
+    font-size: 16px;
+}
+
+footer {
+    padding: 28px;
+    color: #777;
+    text-align: center;
+    font-size: 10px;
+    background: #020202;
+    border-top: 1px solid #151515;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1000px) {
+    .character-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mode-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mode-card {
+        min-height: 245px;
+    }
+
+    .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .topbar {
+        min-height: 64px;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 64px;
+        right: 0;
+        width: 240px;
+        padding: 24px;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        background: #050505;
+        border: 1px solid #202020;
+    }
+
+    .nav-menu.open {
+        display: flex;
+    }
+
+    .hero-character {
+        width: 78vw;
+        opacity: .35;
+    }
+
+    .character-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .game-status {
+        align-items: flex-start;
+    }
+
+    .game-status h2 {
+        max-width: 230px;
+    }
+
+    .lives-box span:first-child {
+        display: none;
+    }
+
+    .clue-panel {
+        top: 53%;
+        width: min(90vw, 520px);
+    }
+
+    .side-character {
+        width: 52vw;
+        opacity: .32;
+    }
+
+    .perks-clue {
+        grid-template-columns: 1fr;
+        max-height: 340px;
+        overflow-y: auto;
+    }
+
+    .perks-clue article {
+        min-height: 98px;
+    }
+
+    .perks-clue article::before {
+        font-size: 34px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .minigame-title {
+        display: none;
+    }
+
+    .brand-divider {
+        display: none;
+    }
+
+    .hero-copy h1 {
+        font-size: 48px;
+    }
+
+    .content-section {
+        padding-inline: 16px;
+    }
+
+    .character-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .character-card {
+        min-height: 190px;
+    }
+
+    .reveal-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+}

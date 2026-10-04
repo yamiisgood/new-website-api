@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dead by Daylight character guessing minigame">
+    <title>Dead by Daylight - The Minigame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="bloodLayer" class="blood-layer" aria-hidden="true"></div>
+
+    <header class="topbar">
+        <a class="brand" href="#home" aria-label="Home">
+            <span class="dbd-logo">DEAD BY<br>DAYLIGHT <span class="scratch">|||||</span></span>
+            <span class="brand-divider"></span>
+            <span class="minigame-title">THE MINIGAME</span>
+        </a>
+
+        <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
+
+        <nav id="navMenu" class="nav-menu">
+            <a href="#characters">KNOW YOUR<br>CHARACTER</a>
+            <a href="#gamemode">GAMEMODE</a>
+            <a href="#about">ABOUT</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- LANDING / MODE SELECT -->
+        <section id="home" class="screen hero-screen">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-copy">
+                <p class="kicker">ENTER THE FOG</p>
+                <h1>HOW WELL DO YOU<br>KNOW THE CHARACTERS?</h1>
+                <p>
+                    Choose a game mode and identify the Dead by Daylight character
+                    before all three lives are gone.
+                </p>
+                <a class="primary-btn" href="#gamemode">CHOOSE GAMEMODE</a>
+            </div>
+
+            <div id="heroCharacter" class="hero-character" aria-hidden="true"></div>
+        </section>
+
+        <!-- CHARACTER DIRECTORY PREVIEW -->
+        <section id="characters" class="content-section">
+            <div class="section-heading">
+                <span>KNOW YOUR CHARACTER</span>
+                <h2>THE CAST INSIDE THE FOG</h2>
+                <p>
+                    These character names are loaded from your existing FastAPI.
+                    Use this section to study before entering the trial.
+                </p>
+            </div>
+
+            <div class="filter-row">
+                <button class="filter-btn active" data-role="All">ALL</button>
+                <button class="filter-btn" data-role="Survivor">SURVIVORS</button>
+                <button class="filter-btn" data-role="Killer">KILLERS</button>
+            </div>
+
+            <div id="characterGrid" class="character-grid">
+                <p class="loading-text">Loading characters from the API...</p>
+            </div>
+        </section>
+
+        <!-- MODE SELECTION -->
+        <section id="gamemode" class="content-section mode-section">
+            <div class="section-heading">
+                <span>GAMEMODE</span>
+                <h2>CHOOSE YOUR TRIAL</h2>
+                <p>Every round gives you three guesses. Pick the kind of clue you want.</p>
+            </div>
+
+            <div class="mode-grid">
+                <button class="mode-card" data-mode="description">
+                    <span class="mode-number">01</span>
+                    <h3>DESCRIPTION</h3>
+                    <p>Read a character description and find out who it belongs to.</p>
+                    <span class="mode-cta">PLAY MODE →</span>
+                </button>
+
+                <button class="mode-card" data-mode="perks">
+                    <span class="mode-number">02</span>
+                    <h3>PERKS</h3>
+                    <p>Three perks are shown. Guess the Survivor or Killer that owns them.</p>
+                    <span class="mode-cta">PLAY MODE →</span>
+                </button>
+
+                <button class="mode-card" data-mode="image">
+                    <span class="mode-number">03</span>
+                    <h3>ZOOMED IMAGE</h3>
+                    <p>Identify the character from a heavily zoomed crop. Each miss zooms out.</p>
+                    <span class="mode-cta">PLAY MODE →</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- GAME -->
+        <section id="game" class="game-screen hidden">
+            <div class="game-backdrop"></div>
+            <div id="sideLeft" class="side-character side-left"></div>
+            <div id="sideRight" class="side-character side-right"></div>
+
+            <div class="game-ui">
+                <div class="game-status">
+                    <h2>YOU CAN ONLY GUESS THREE TIMES...</h2>
+                    <div class="lives-box">
+                        <span>LIVES:</span>
+                        <div id="lives" class="lives" aria-label="3 lives">
+                            <span>▰</span><span>▰</span><span>▰</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clue-panel">
+                    <p id="modeLabel" class="mode-label">DESCRIPTION</p>
+
+                    <div id="descriptionClue" class="text-clue hidden"></div>
+
+                    <div id="perksClue" class="perks-clue hidden">
+                        <article><span>PERK I</span><strong id="perk1"></strong></article>
+                        <article><span>PERK II</span><strong id="perk2"></strong></article>
+                        <article><span>PERK III</span><strong id="perk3"></strong></article>
+                    </div>
+
+                    <div id="imageClue" class="image-clue hidden">
+                        <img id="zoomImage" src="" alt="Zoomed character clue">
+                    </div>
+
+                    <form id="guessForm" class="guess-form">
+                        <input
+                            id="guessInput"
+                            list="characterNames"
+                            type="text"
+                            placeholder="TYPE CHARACTER NAME"
+                            autocomplete="off"
+                            required
+                        >
+                        <datalist id="characterNames"></datalist>
+                        <button type="submit">UNHOOK</button>
+                    </form>
+
+                    <p id="gameMessage" class="game-message" aria-live="polite"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVEAL -->
+        <section id="reveal" class="reveal-screen hidden">
+            <div class="reveal-backdrop"></div>
+            <div class="reveal-copy">
+                <p id="resultLabel">THE ANSWER WAS</p>
+                <img id="revealImage" alt="Correct character">
+                <h2 id="revealName">THE SPIRIT</h2>
+                <p id="revealStats"></p>
+                <div class="reveal-actions">
+                    <button id="playAgainBtn" class="primary-btn">PLAY AGAIN</button>
+                    <a class="secondary-btn" href="#gamemode" id="changeModeBtn">CHANGE MODE</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="content-section about-section">
+            <div class="section-heading">
+                <span>ABOUT</span>
+                <h2>HOW THE MINIGAME WORKS</h2>
+            </div>
+            <div class="about-grid">
+                <article>
+                    <strong>01</strong>
+                    <h3>LOAD</h3>
+                    <p>The frontend requests all characters from your existing FastAPI.</p>
+                </article>
+                <article>
+                    <strong>02</strong>
+                    <h3>RANDOMIZE</h3>
+                    <p>JavaScript randomly chooses one character and creates the selected clue.</p>
+                </article>
+                <article>
+                    <strong>03</strong>
+                    <h3>GUESS</h3>
+                    <p>You get three attempts. Wrong answers add blood effects and remove a life.</p>
+                </article>
+                <article>
+                    <strong>04</strong>
+                    <h3>REVEAL</h3>
+                    <p>After a correct guess or three misses, the full character is revealed.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>DEAD BY DAYLIGHT - THE MINIGAME • FAN PROJECT</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
