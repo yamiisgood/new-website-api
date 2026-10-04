@@ -3,7 +3,7 @@
 // Your index.py is not changed. This frontend simply calls it.
 // Change API_BASE_URL only if your FastAPI is hosted elsewhere.
 // ============================================================
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "my-fastapi-service-gi31.vercel.app";
 const API_KEY = "student-api-key-123";
 
 // ============================================================
