@@ -9,7 +9,6 @@ const API_KEY = "student-api-key-123";
 // ============================================================
 // DOM REFERENCES
 // ============================================================
-const characterGrid = document.getElementById("characterGrid");
 const datalist = document.getElementById("characterNames");
 const heroCharacter = document.getElementById("heroCharacter");
 
@@ -75,21 +74,15 @@ async function loadCharacters() {
         }
 
         fillCharacterNames();
-        renderCharacterGrid("All");
         setHeroCharacter();
     } catch (error) {
         console.error(error);
-        characterGrid.innerHTML = `
-            <p class="loading-text">
-                Could not load the API. Start FastAPI first and make sure
-                API_BASE_URL in script.js matches your server.
-            </p>
-        `;
+        console.error("Could not load characters from the API.");
     }
 }
 
 // ============================================================
-// DIRECTORY
+// CHARACTER NAMES + HERO
 // ============================================================
 function fillCharacterNames() {
     datalist.innerHTML = "";
@@ -100,38 +93,6 @@ function fillCharacterNames() {
         datalist.appendChild(option);
     });
 }
-
-function renderCharacterGrid(role) {
-    const filtered = role === "All"
-        ? characters
-        : characters.filter(character => character.role === role);
-
-    characterGrid.innerHTML = "";
-
-    filtered.forEach(character => {
-        const card = document.createElement("article");
-        card.className = "character-card";
-
-        const image = character.image || "";
-        card.innerHTML = `
-            <img src="${image}" alt="${escapeHtml(character.name)}" loading="lazy">
-            <div>
-                <strong>${escapeHtml(character.name)}</strong>
-                <small>${escapeHtml(character.role)} • ${escapeHtml(character.character_code)}</small>
-            </div>
-        `;
-
-        characterGrid.appendChild(card);
-    });
-}
-
-document.querySelectorAll(".filter-btn").forEach(button => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-        renderCharacterGrid(button.dataset.role);
-    });
-});
 
 function setHeroCharacter() {
     const preferred = characters.find(character => character.role === "Killer" && character.image);
