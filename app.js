@@ -37,6 +37,8 @@ const changeModeBtn = document.getElementById("changeModeBtn");
 
 const menuBtn = document.getElementById("menuBtn");
 const navMenu = document.getElementById("navMenu");
+const homeLink = document.getElementById("homeLink");
+const aboutLink = document.getElementById("aboutLink");
 
 // ============================================================
 // GAME STATE
@@ -307,9 +309,30 @@ playAgainBtn.addEventListener("click", () => {
 });
 
 changeModeBtn.addEventListener("click", () => {
-    revealScreen.classList.add("hidden");
+    closeGameScreens();
+});
+
+// ============================================================
+// RETURN TO MAIN PAGE
+// ============================================================
+function closeGameScreens() {
     gameScreen.classList.add("hidden");
+    revealScreen.classList.add("hidden");
     document.body.classList.remove("game-active");
+    bloodLayer.innerHTML = "";
+    answered = false;
+    gameMessage.textContent = "";
+    guessInput.value = "";
+}
+
+homeLink.addEventListener("click", () => {
+    closeGameScreens();
+    navMenu.classList.remove("open");
+});
+
+aboutLink.addEventListener("click", () => {
+    closeGameScreens();
+    navMenu.classList.remove("open");
 });
 
 // ============================================================
