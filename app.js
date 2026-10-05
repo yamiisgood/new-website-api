@@ -1,14 +1,8 @@
-// ============================================================
 // API CONFIGURATION
-// Your index.py is not changed. This frontend simply calls it.
-// Change API_BASE_URL only if your FastAPI is hosted elsewhere.
-// ============================================================
 const API_BASE_URL = "https://my-fastapi-service-gi31.vercel.app/api/v1";
 const API_KEY = "student-api-key-123";
 
-// ============================================================
 // DOM REFERENCES
-// ============================================================
 const datalist = document.getElementById("characterNames");
 const heroCharacter = document.getElementById("heroCharacter");
 
@@ -40,9 +34,7 @@ const navMenu = document.getElementById("navMenu");
 const homeLink = document.getElementById("homeLink");
 const aboutLink = document.getElementById("aboutLink");
 
-// ============================================================
 // GAME STATE
-// ============================================================
 let characters = [];
 let currentCharacter = null;
 let currentMode = "description";
@@ -50,9 +42,7 @@ let lives = 3;
 let answered = false;
 let lastCharacterId = null;
 
-// ============================================================
 // API
-// ============================================================
 async function loadCharacters() {
     try {
         const response = await fetch(
@@ -83,9 +73,7 @@ async function loadCharacters() {
     }
 }
 
-// ============================================================
 // CHARACTER NAMES + HERO
-// ============================================================
 function fillCharacterNames() {
     datalist.innerHTML = "";
 
@@ -105,9 +93,7 @@ function setHeroCharacter() {
     }
 }
 
-// ============================================================
 // START GAME
-// ============================================================
 document.querySelectorAll(".mode-card").forEach(card => {
     card.addEventListener("click", () => {
         currentMode = card.dataset.mode;
@@ -170,9 +156,7 @@ function prepareBackgroundCharacters() {
     sideRight.style.backgroundImage = right ? `url("${right.image}")` : "none";
 }
 
-// ============================================================
 // CLUE MODES
-// ============================================================
 function buildClue() {
     descriptionClue.classList.add("hidden");
     perksClue.classList.add("hidden");
@@ -200,9 +184,7 @@ function buildClue() {
     }
 }
 
-// ============================================================
 // GUESSING
-// ============================================================
 guessForm.addEventListener("submit", event => {
     event.preventDefault();
 
@@ -273,9 +255,7 @@ function zoomOutImage() {
     }
 }
 
-// ============================================================
 // BLOOD EFFECT
-// ============================================================
 function createBloodSplatter() {
     for (let i = 0; i < 18; i++) {
         const drop = document.createElement("span");
@@ -290,9 +270,7 @@ function createBloodSplatter() {
     }
 }
 
-// ============================================================
 // REVEAL / NEXT ROUND
-// ============================================================
 function revealCharacter(correct) {
     resultLabel.textContent = correct ? "YOU GUESSED" : "THE ANSWER WAS";
     revealName.textContent = currentCharacter.name.toUpperCase();
@@ -312,9 +290,7 @@ changeModeBtn.addEventListener("click", () => {
     closeGameScreens();
 });
 
-// ============================================================
 // RETURN TO MAIN PAGE
-// ============================================================
 function closeGameScreens() {
     gameScreen.classList.add("hidden");
     revealScreen.classList.add("hidden");
@@ -335,9 +311,7 @@ aboutLink.addEventListener("click", () => {
     navMenu.classList.remove("open");
 });
 
-// ============================================================
 // MOBILE NAVIGATION
-// ============================================================
 menuBtn.addEventListener("click", () => {
     navMenu.classList.toggle("open");
 });
@@ -348,9 +322,7 @@ navMenu.querySelectorAll("a").forEach(link => {
     });
 });
 
-// ============================================================
 // SMALL SAFETY HELPER
-// ============================================================
 function escapeHtml(value) {
     return String(value)
         .replaceAll("&", "&amp;")
